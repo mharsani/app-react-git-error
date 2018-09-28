@@ -6,13 +6,25 @@ import Page from './page'
 
 
 const Pagination = ({ total, activePage, pageLink, onClick }) => (
-  <ul className='pagination'>
-    {pagination({ total, activePage }).map((page, index) => (
-      <li key={index} className={`pagination-item ${activePage === page ? 'active' : ''}`}>
-        <Page page={page} pageLink={pageLink.replace('%page%', page)} onClick={onClick} />
-      </li>
-    ))}
-  </ul>
+  <tfoot>
+    <tr>
+      <th colSpan='6'>
+        <div className='ui pagination right floated menu'>
+          <a className='icon item'>
+            <i aria-hidden='true' className='chevron left icon' />
+          </a>
+          {pagination({ total, activePage }).map((page, index) => (
+            <div key={index} className={`item ${activePage === page ? 'active' : ''}`}>
+              <Page page={page} pageLink={pageLink.replace('%page%', page)} onClick={onClick} />
+            </div>
+          ))}
+          <a className='icon item'>
+            <i aria-hidden='true' className='chevron right icon'/>
+          </a>
+        </div>
+      </th>
+    </tr>
+  </tfoot>
 )
 
 Pagination.defaultProps = {

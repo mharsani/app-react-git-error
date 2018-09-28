@@ -4,7 +4,7 @@ import React from 'react'
 
 const Dots = ({ className }) => <span className={className}>...</span>
 
-const Page = ({ page,  onClick }) => {
+const Page = ({ page, pageLink, onClick }) => {
   const Component = page === '...' ? Dots : 'a'
 
   const handleClick = !onClick ? null : (e) => {
@@ -13,7 +13,7 @@ const Page = ({ page,  onClick }) => {
   }
 
   return (
-    <Component  onClick={handleClick} className='pagination-link'>
+    <Component href={pageLink} onClick={handleClick} className='pagination-link'>
       {page}
     </Component>
   )

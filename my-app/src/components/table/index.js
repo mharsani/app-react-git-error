@@ -27,15 +27,15 @@ const Table = ({errorInfo, pagination, handlePagination}) => (
           )) : <span>NA</span>
           }
           </td>
-          
-          
+
           <td key={index}>{infos.state}</td>
         </tr>
       ))}
     </tbody>
+    <Pagination total={pagination.total} activePage={pagination.activePage} onClick={handlePagination}  />
   </table>
   
-  <Pagination total={pagination.total} activePage={pagination.activePage} onClick={handlePagination} />
+  
 </div>
 )
 

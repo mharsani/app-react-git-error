@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import AppContainer from './container/app-container'
 
 class App extends Component {
@@ -18,14 +18,16 @@ class App extends Component {
     return `https://api.github.com/repos/facebook/react/issues?per_page=${this.perPage}&page=${page}`
   }
 
+
   getApiData (page) {
     fetch(this.getUrlApi(page))
         .then(res => {
           const linkHeader  = res.headers.get('Link')
           const totalPagesMatch = linkHeader.match(/page=(\d+)>; rel="last/)
+          //totalPagesMatch put -1 just to fix return wrong last page from API
           this.setState({
             pagination: {
-              total: +totalPagesMatch[1],
+              total: +totalPagesMatch[1] - 1,
               activePage: page
             }
           })
