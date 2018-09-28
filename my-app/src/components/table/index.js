@@ -1,7 +1,7 @@
 import React from 'react'
 import Pagination from '../pagination/index'
 
-const Table = ({errorInfo, pagination, handlePagination}) => (
+const Table = ({errorInfo, pagination, handlePagination, nextPagination, previousPagination}) => (
   <div>
     <table className="ui celled padded table">
     <thead>
@@ -32,7 +32,7 @@ const Table = ({errorInfo, pagination, handlePagination}) => (
         </tr>
       ))}
     </tbody>
-    <Pagination total={pagination.total} activePage={pagination.activePage} onClick={handlePagination}  />
+    <Pagination total={pagination.total} activePage={pagination.activePage} onClick={handlePagination}  nextPagination={nextPagination} previousPagination={previousPagination}/>
   </table>
   
   

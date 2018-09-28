@@ -5,12 +5,12 @@ import pagination from '../../utils/pagination/index'
 import Page from './page'
 
 
-const Pagination = ({ total, activePage, pageLink, onClick }) => (
+const Pagination = ({ total, activePage, pageLink, onClick, nextPagination, previousPagination }) => (
   <tfoot>
     <tr>
       <th colSpan='6'>
         <div className='ui pagination right floated menu'>
-          <a className='icon item'>
+          <a className='icon item' onClick={() => previousPagination(activePage - 1)}>
             <i aria-hidden='true' className='chevron left icon' />
           </a>
           {pagination({ total, activePage }).map((page, index) => (
@@ -18,7 +18,7 @@ const Pagination = ({ total, activePage, pageLink, onClick }) => (
               <Page page={page} pageLink={pageLink.replace('%page%', page)} onClick={onClick} />
             </div>
           ))}
-          <a className='icon item'>
+          <a className='icon item' onClick={() => nextPagination(activePage + 1)}>
             <i aria-hidden='true' className='chevron right icon'/>
           </a>
         </div>

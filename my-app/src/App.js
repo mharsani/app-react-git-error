@@ -18,6 +18,20 @@ class App extends Component {
     return `https://api.github.com/repos/facebook/react/issues?per_page=${this.perPage}&page=${page}`
   }
 
+  nextPagination (next) {
+    if(next <=  this.state.pagination.total ){
+      this.getApiData(next)
+    }
+    return null
+  }
+
+  previousPagination (previous) {
+    if(previous >= 1 ){
+      this.getApiData(previous)
+    }
+    return null
+   }
+ 
 
   getApiData (page) {
     fetch(this.getUrlApi(page))
@@ -58,6 +72,8 @@ class App extends Component {
       <AppContainer 
        {...this.state}
        handlePagination={(page) => this.getApiData(page)}
+       nextPagination={(next) => this.nextPagination(next)}
+       previousPagination={(previous) => this.previousPagination(previous)}
        />
     );
   }
