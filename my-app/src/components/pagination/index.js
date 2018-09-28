@@ -1,22 +1,24 @@
-import React from 'react'
+'use strict'
 
-const Pagination = () => (
-    <tfoot>
-    <tr><th colSpan="6">
-      <div className="ui right floated pagination menu">
-        <a className="icon item">
-          <i className="left chevron icon"></i>
-        </a>
-        <a className="item">1</a>
-        <a className="item">2</a>
-        <a className="item">3</a>
-        <a className="item">4</a>
-        <a className="icon item">
-          <i className="right chevron icon"></i>
-        </a>
-      </div>
-    </th>
-  </tr></tfoot>
+import React from 'react'
+import pagination from '../../utils/pagination/index'
+import Page from './page'
+
+
+const Pagination = ({ total, activePage, pageLink, onClick }) => (
+  <ul className='pagination'>
+    {pagination({ total, activePage }).map((page, index) => (
+      <li key={index} className={`pagination-item ${activePage === page ? 'active' : ''}`}>
+        <Page page={page} pageLink={pageLink.replace('%page%', page)} onClick={onClick} />
+      </li>
+    ))}
+  </ul>
 )
+
+Pagination.defaultProps = {
+  pageLink: '',
+  activePage: 1
+}
+
 
 export default Pagination

@@ -6,12 +6,31 @@ class App extends Component {
     super()
     this.state = {
       errorInfo: [],
+      pagination: {
+        total: 1,
+        activePage: 1
+      }
     }
+    this.perPage = 8
   }
-  componentDidMount () {
-    const url = 'https://api.github.com/repos/facebook/react/issues'
-    fetch(url)
-        .then(res => res.json())
+
+  getUrlApi (page = 1) {
+    return `https://api.github.com/repos/facebook/react/issues?per_page=${this.perPage}&page=${page}`
+  }
+
+  getApiData (page) {
+    fetch(this.getUrlApi(page))
+        .then(res => {
+          const linkHeader  = res.headers.get('Link')
+          const totalPagesMatch = linkHeader.match(/page=(\d+)>; rel="last/)
+          this.setState({
+            pagination: {
+              total: +totalPagesMatch[1],
+              activePage: page
+            }
+          })
+          return res.json()
+        })
         .then(result => {
             this.setState({
               errorInfo: result.map((eachElement) => {
@@ -24,13 +43,20 @@ class App extends Component {
                   state: eachElement.state
                 }
               })
-            })
+          }) 
         }
       )
   }
+  
+  componentDidMount () {
+    this.getApiData()
+  }
   render() {
     return (
-      <AppContainer  {...this.state}/>
+      <AppContainer 
+       {...this.state}
+       handlePagination={(page) => this.getApiData(page)}
+       />
     );
   }
 }
