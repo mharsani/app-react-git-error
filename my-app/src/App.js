@@ -4,8 +4,15 @@ import AppContainer from './container/app-container'
 class App extends Component {
   constructor() {
     super()
+    const dataSelect = [{ key: 'issue', value:'issue', text: 'Issues Number' }, 
+    { key: 'Title', value: 'title', text: 'Title' }, 
+    { key: 'state', value:'state', text: 'State' } ]
     this.state = {
+      dataSelect: dataSelect,
       errorInfo: [],
+      query: "",
+      selectVal: "title",
+      isDisabled: true,
       pagination: {
         total: 1,
         activePage: 1
@@ -31,8 +38,18 @@ class App extends Component {
     }
     return null
    }
- 
 
+   handleFilter(e) {
+      this.setState({ query: e.target.value })
+  }
+
+  handleSelect = (event, data) => {
+    this.setState({
+      selectVal: data.value,
+      isDisabled: false
+    });
+  }
+  
   getApiData (page) {
     fetch(this.getUrlApi(page))
         .then(res => {
@@ -51,7 +68,7 @@ class App extends Component {
             this.setState({
               errorInfo: result.map((eachElement) => {
                 return {
-                  issue: eachElement.number,
+                  issue: eachElement.number.toString(),
                   title: eachElement.title ,
                   created: eachElement.created_at,
                   updated: eachElement.updated_at,
@@ -73,6 +90,8 @@ class App extends Component {
        {...this.state}
        handlePagination={(page) => this.getApiData(page)}
        nextPagination={(next) => this.nextPagination(next)}
+       handleFilter={(e) => this.handleFilter(e) }
+       handleSelect={(e, data) => this.handleSelect(e, data)}
        previousPagination={(previous) => this.previousPagination(previous)}
        />
     );
