@@ -1,4 +1,3 @@
-'use strict'
 
 import React from 'react'
 import pagination from '../../utils/pagination/index'
