@@ -1,9 +1,9 @@
 # app-react-git-error
 
-yarn 
+# yarn 
 Install Dependencies
 
-yarn start
+# yarn start
 Runs the app in development mode.
 Open http://localhost:3000 to view it in the browser.
 
@@ -12,13 +12,13 @@ You will see the build errors and lint warnings in the console.
 
 Build errors
 
-yarn test
+# yarn test
 Runs the test watcher in an interactive mode.
 By default, runs tests related to files changed since the last commit.
 
 Read more about testing.
 
-yarn build
+# yarn build
 Builds the app for production to the build folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
